@@ -233,6 +233,52 @@ final class SamsungTVService: NSObject, ObservableObject {
         }
     }
     
+    // MARK: - Text / Keyboard Input (YouTube & Smart Search)
+    
+    /// Sends a text string directly to the TV's active text field (e.g. YouTube Search, Netflix).
+    /// Encodes the string in Base64 as required by the Samsung Tizen input specification.
+    func sendText(_ text: String, completion: ((Bool) -> Void)? = nil) {
+        guard connectionState.isConnected else {
+            completion?(false)
+            return
+        }
+        
+        let base64Text = text.data(using: .utf8)?.base64EncodedString() ?? ""
+        
+        // Primary format: ms.remote.control with SendInputString
+        let payload: [String: Any] = [
+            "method": "ms.remote.control",
+            "params": [
+                "Cmd": "SendInputString",
+                "DataOfCode": base64Text,
+                "Option": "false",
+                "TypeOfRemote": "SendRemoteKey"
+            ]
+        ]
+        
+        // Fallback payload: ed.tv.key with EventType: text
+        let fallbackPayload: [String: Any] = [
+            "method": "ms.channel.emit",
+            "params": [
+                "event": "ed.tv.key",
+                "to": "host",
+                "data": [
+                    "EventType": "text",
+                    "Event": "SendText",
+                    "KeyCode": base64Text
+                ]
+            ]
+        ]
+        
+        sendJson(payload) { [weak self] success in
+            if success {
+                completion?(true)
+            } else {
+                self?.sendJson(fallbackPayload, completion: completion)
+            }
+        }
+    }
+    
     // MARK: - App Launching
     
     /// Launches an application by its Samsung Tizen App ID (e.g. YouTube, Netflix).

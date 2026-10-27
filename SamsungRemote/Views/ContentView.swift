@@ -72,6 +72,17 @@ struct ContentView: View {
                 })
                 .sheetPresentationMediumAndLarge()
             }
+            .sheet(isPresented: $viewModel.showKeyboardSheet) {
+                SmartKeyboardSheet(
+                    onSendText: { text in
+                        viewModel.sendText(text)
+                    },
+                    onSendKey: { key in
+                        viewModel.sendKey(key)
+                    }
+                )
+                .sheetPresentationMediumAndLarge()
+            }
             .alert(isPresented: $viewModel.showAlert) {
                 Alert(
                     title: Text("Samsung Remote"),
@@ -125,7 +136,7 @@ struct ContentView: View {
     // MARK: - Utility Bar
     
     private var utilityBar: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 10) {
             // Number Pad (123)
             RemoteButton(
                 title: "1 2 3",
@@ -134,6 +145,17 @@ struct ContentView: View {
                 isPill: true
             ) {
                 viewModel.showKeypadSheet = true
+            }
+            
+            // Smart Keyboard Input (YouTube & Search Typing)
+            RemoteButton(
+                icon: "keyboard",
+                title: "Gõ chữ",
+                height: 40,
+                backgroundColor: Color(white: 0.15),
+                isPill: true
+            ) {
+                viewModel.showKeyboardSheet = true
             }
             
             // App Launcher Drawer
@@ -147,21 +169,10 @@ struct ContentView: View {
                 viewModel.showAppLauncherSheet = true
             }
             
-            // Search Button
-            RemoteButton(
-                icon: "magnifyingglass",
-                width: 44,
-                height: 40,
-                backgroundColor: Color(white: 0.15),
-                isPill: true
-            ) {
-                viewModel.sendKey(.search)
-            }
-            
             // Menu Button
             RemoteButton(
                 icon: "line.3.horizontal",
-                width: 44,
+                width: 42,
                 height: 40,
                 backgroundColor: Color(white: 0.15),
                 isPill: true

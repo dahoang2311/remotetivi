@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Samsung Remote - iOS SwiftUI Live Simulator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&family=SF+Pro+Rounded:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <!-- SF Pro / San Francisco system fonts fallback -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Lucide icons for high-fidelity SF Symbol replica -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <div class="workspace-container">
+    
+    <!-- Left Sidebar: Simulator Controls & Design Inspector -->
+    <aside class="sidebar-panel">
+      <div class="panel-header">
+        <div class="brand-badge">
+          <span class="brand-dot"></span>
+          <span>SwiftUI Live Preview</span>
+        </div>
+        <h2>iOS Remote Control</h2>
+        <p class="subtitle">Mô phỏng 1:1 giao diện iPhone thực tế</p>
+      </div>
+
+      <!-- Device Configuration Controls -->
+      <div class="control-group">
+        <label class="group-title">Mô hình iPhone</label>
+        <div class="segmented-control" id="deviceSelector">
+          <button class="segment-btn active" data-device="dynamic-island">15 Pro / Max</button>
+          <button class="segment-btn" data-device="notch">iPhone 13 (Notch)</button>
+        </div>
+      </div>
+
+      <!-- TV Simulation State -->
+      <div class="control-group">
+        <label class="group-title">Trạng thái kết nối TV</label>
+        <div class="status-selector">
+          <button class="status-btn active" data-state="connected">
+            <span class="dot green"></span> Đã kết nối
+          </button>
+          <button class="status-btn" data-state="connecting">
+            <span class="dot orange"></span> Đang kết nối
+          </button>
+          <button class="status-btn" data-state="pairing">
+            <span class="dot yellow"></span> Chờ cho phép TV
+          </button>
+          <button class="status-btn" data-state="disconnected">
+            <span class="dot gray"></span> Ngắt kết nối
+          </button>
+        </div>
+      </div>
+
+      <!-- Live Command Stream Console -->
+      <div class="control-group console-group">
+        <div class="console-header">
+          <span class="group-title">WebSocket Command Log (TizenOS)</span>
+          <button class="clear-btn" id="clearLogBtn">Xóa</button>
+        </div>
+        <div class="command-log" id="commandLog">
+          <div class="log-entry system">[System] Sẵn sàng nhận lệnh từ Remote...</div>
+        </div>
+      </div>
+
+      <!-- Quick Tweak Guides -->
+      <div class="tips-card">
+        <div class="tips-title">💡 Bạn có thể chỉnh sửa:</div>
+        <ul>
+          <li>Màu sắc nút bấm, kích thước D-Pad</li>
+          <li>Khoảng cách (Padding, Spacing)</li>
+          <li>Đổi thứ tự nút hoặc thêm tính năng mới</li>
+        </ul>
+        <div class="tips-note">Khi bạn muốn thay đổi bất kỳ chi tiết nào, chỉ cần nhắn tôi sẽ sửa ngay!</div>
+      </div>
+    </aside>
+
+    <!-- Center Stage: The iPhone Hardware Simulator -->
+    <main class="simulator-stage">
+      <div class="iphone-frame" id="iphoneFrame">
+        
+        <!-- Hardware Exterior Details (Speaker, Island/Notch) -->
+        <div class="hardware-top-bar">
+          <div class="phone-speaker"></div>
+          
+          <!-- Dynamic Island / Notch Element -->
+          <div class="top-sensor-cutout dynamic-island" id="sensorCutout">
+            <div class="island-camera"></div>
+            <div class="island-sensor"></div>
+          </div>
+        </div>
+
+        <!-- iOS Status Bar -->
+        <div class="ios-status-bar">
+          <span class="time-display" id="currentTimeDisplay">09:41</span>
+          <div class="status-icons">
+            <i data-lucide="signal" class="status-icon"></i>
+            <i data-lucide="wifi" class="status-icon"></i>
+            <i data-lucide="battery-charging" class="status-icon battery"></i>
+          </div>
+        </div>
+
+        <!-- App Screen Canvas (Direct 1:1 SwiftUI ContentView Layout) -->
+        <div class="app-screen">
+          <div class="screen-ambient-glow"></div>
+
+          <!-- TOP BAR: Source, Status Badge Pill, Power -->
+          <header class="remote-header">
+            <button class="remote-btn square-btn" id="btnSource" title="Source / Input">
+              <i data-lucide="tv-2"></i>
+            </button>
+
+            <!-- Pulsating Connection Badge Pill -->
+            <button class="connection-badge-pill" id="btnConnectionBadge">
+              <span class="pulse-container">
+                <span class="pulse-ring"></span>
+                <span class="pulse-dot"></span>
+              </span>
+              <div class="badge-text">
+                <span class="device-name" id="badgeDeviceName">Living Room TV</span>
+                <span class="device-status" id="badgeStatusText">Connected</span>
+              </div>
+              <i data-lucide="chevron-down" class="badge-chevron"></i>
+            </button>
+
+            <!-- Power Button -->
+            <button class="remote-btn square-btn power-btn" id="btnPower" title="Power On/Off">
+              <i data-lucide="power"></i>
+            </button>
+          </header>
+
+          <!-- UTILITY ACTION SHORTCUTS BAR -->
+          <section class="utility-bar">
+            <button class="pill-shortcut-btn" id="btnKeypadTrigger" title="Bàn phím số">
+              <span>1 2 3</span>
+            </button>
+            <button class="pill-shortcut-btn" id="btnKeyboardTrigger" title="Nhập chữ tìm kiếm YouTube / Phim">
+              <i data-lucide="keyboard"></i>
+              <span>Gõ chữ</span>
+            </button>
+            <button class="pill-shortcut-btn" id="btnAppsTrigger" title="Kho ứng dụng">
+              <i data-lucide="layout-grid"></i>
+              <span>Apps</span>
+            </button>
+            <button class="pill-shortcut-btn icon-only" id="btnMenu" title="Menu">
+              <i data-lucide="menu"></i>
+            </button>
+          </section>
+
+          <!-- CENTER D-PAD NAVIGATION SECTION -->
+          <section class="dpad-wrapper">
+            <!-- Left Flanking Buttons (Back & Home) -->
+            <div class="flank-col left-flank">
+              <button class="remote-btn circular-flank-btn" id="btnBack" title="Back">
+                <i data-lucide="undo-2"></i>
+              </button>
+              <button class="remote-btn circular-flank-btn home-btn" id="btnHome" title="Home">
+                <i data-lucide="home"></i>
+              </button>
+            </div>
+
+            <!-- Circular D-Pad Controller -->
+            <div class="dpad-ring">
+              <button class="dpad-direction up" id="btnDpadUp" title="Up">
+                <i data-lucide="chevron-up"></i>
+              </button>
+              <button class="dpad-direction down" id="btnDpadDown" title="Down">
+                <i data-lucide="chevron-down"></i>
+              </button>
+              <button class="dpad-direction left" id="btnDpadLeft" title="Left">
+                <i data-lucide="chevron-left"></i>
+              </button>
+              <button class="dpad-direction right" id="btnDpadRight" title="Right">
+                <i data-lucide="chevron-right"></i>
+              </button>
+
+              <!-- Central OK Button -->
+              <button class="dpad-center-ok" id="btnDpadOk" title="OK / Enter">
+                <span>OK</span>
+              </button>
+            </div>
+
+            <!-- Right Flanking Buttons (Exit & Info) -->
+            <div class="flank-col right-flank">
+              <button class="remote-btn circular-flank-btn" id="btnExit" title="Exit">
+                <i data-lucide="x"></i>
+              </button>
+              <button class="remote-btn circular-flank-btn" id="btnInfo" title="Info">
+                <i data-lucide="info"></i>
+              </button>
+            </div>
+          </section>
+
+          <!-- VOLUME & CHANNEL ROCKERS SECTION -->
+          <section class="rockers-section">
+            <!-- Volume Rocker Switch -->
+            <div class="rocker-control volume-rocker">
+              <button class="rocker-half top" id="btnVolUp" title="Volume Up">
+                <i data-lucide="plus"></i>
+              </button>
+              <div class="rocker-divider">
+                <span>VOL</span>
+              </div>
+              <button class="rocker-half bottom" id="btnVolDown" title="Volume Down">
+                <i data-lucide="minus"></i>
+              </button>
+            </div>
+
+            <!-- Center Media Controls (Play/Pause & Mute) -->
+            <div class="center-media-controls">
+              <button class="remote-btn circular-media-btn" id="btnPlayPause" title="Play / Pause">
+                <i data-lucide="play"></i>
+              </button>
+              <button class="remote-btn circular-media-btn mute-btn" id="btnMute" title="Mute">
+                <i data-lucide="volume-x"></i>
+              </button>
+            </div>
+
+            <!-- Channel Rocker Switch -->
+            <div class="rocker-control channel-rocker">
+              <button class="rocker-half top" id="btnChUp" title="Channel Up">
+                <i data-lucide="chevron-up"></i>
+              </button>
+              <div class="rocker-divider">
+                <span>CH</span>
+              </div>
+              <button class="rocker-half bottom" id="btnChDown" title="Channel Down">
+                <i data-lucide="chevron-down"></i>
+              </button>
+            </div>
+          </section>
+
+          <!-- BOTTOM QUICK APP LAUNCHER DOCK -->
+          <footer class="quick-app-dock">
+            <button class="quick-app-pill netflix" data-app="Netflix" data-id="3201907018807">
+              <span class="app-color-badge red"></span>
+              <span>Netflix</span>
+            </button>
+            <button class="quick-app-pill youtube" data-app="YouTube" data-id="111299001912">
+              <span class="app-color-badge red-bright"></span>
+              <span>YouTube</span>
+            </button>
+            <button class="quick-app-pill prime" data-app="Prime Video" data-id="3201901017640">
+              <span class="app-color-badge cyan"></span>
+              <span>Prime</span>
+            </button>
+            <button class="quick-app-pill apple" data-app="Apple TV" data-id="3201807016597">
+              <span class="app-color-badge gray"></span>
+              <span>Apple TV</span>
+            </button>
+          </footer>
+
+          <!-- Bottom Home Indicator Bar (iPhone Gesture bar) -->
+          <div class="ios-home-indicator"></div>
+
+        </div><!-- /app-screen -->
+
+        <!-- MODAL SHEET 1: NUMERIC KEYPAD SHEET -->
+        <div class="ios-modal-sheet" id="keypadSheet">
+          <div class="sheet-drag-handle"></div>
+          <div class="sheet-header">
+            <h3>Number Pad</h3>
+            <button class="sheet-close-btn" id="closeKeypadBtn">
+              <i data-lucide="x"></i>
+            </button>
+          </div>
+          <div class="numeric-grid">
+            <button class="num-key" data-key="KEY_1">1</button>
+            <button class="num-key" data-key="KEY_2">2</button>
+            <button class="num-key" data-key="KEY_3">3</button>
+            <button class="num-key" data-key="KEY_4">4</button>
+            <button class="num-key" data-key="KEY_5">5</button>
+            <button class="num-key" data-key="KEY_6">6</button>
+            <button class="num-key" data-key="KEY_7">7</button>
+            <button class="num-key" data-key="KEY_8">8</button>
+            <button class="num-key" data-key="KEY_9">9</button>
+            <button class="num-key sub" data-key="KEY_DOT">•</button>
+            <button class="num-key" data-key="KEY_0">0</button>
+            <button class="num-key sub" data-key="KEY_PRECH">Pre-CH</button>
+          </div>
+          <div class="color-keys-row">
+            <button class="color-key red" data-key="KEY_RED" title="Red"></button>
+            <button class="color-key green" data-key="KEY_GREEN" title="Green"></button>
+            <button class="color-key yellow" data-key="KEY_YELLOW" title="Yellow"></button>
+            <button class="color-key blue" data-key="KEY_CYAN" title="Blue"></button>
+          </div>
+        </div>
+
+        <!-- MODAL SHEET 2: SMART APPS LAUNCHER DRAWER -->
+        <div class="ios-modal-sheet" id="appsSheet">
+          <div class="sheet-drag-handle"></div>
+          <div class="sheet-header">
+            <div>
+              <h3>Smart Hub Apps</h3>
+              <p class="sheet-sub">Mở nhanh ứng dụng trên TV Samsung</p>
+            </div>
+            <button class="sheet-close-btn" id="closeAppsBtn">
+              <i data-lucide="x"></i>
+            </button>
+          </div>
+          <div class="apps-grid">
+            <div class="app-card" data-app="Netflix" data-id="3201907018807">
+              <div class="app-icon netflix-bg"><i data-lucide="film"></i></div>
+              <span>Netflix</span>
+            </div>
+            <div class="app-card" data-app="YouTube" data-id="111299001912">
+              <div class="app-icon youtube-bg"><i data-lucide="play"></i></div>
+              <span>YouTube</span>
+            </div>
+            <div class="app-card" data-app="Prime Video" data-id="3201901017640">
+              <div class="app-icon prime-bg"><i data-lucide="video"></i></div>
+              <span>Prime Video</span>
+            </div>
+            <div class="app-card" data-app="Disney+" data-id="3201901019363">
+              <div class="app-icon disney-bg"><i data-lucide="sparkles"></i></div>
+              <span>Disney+</span>
+            </div>
+            <div class="app-card" data-app="Apple TV" data-id="3201807016597">
+              <div class="app-icon appletv-bg"><i data-lucide="tv"></i></div>
+              <span>Apple TV</span>
+            </div>
+            <div class="app-card" data-app="Spotify" data-id="3201606009684">
+              <div class="app-icon spotify-bg"><i data-lucide="music-2"></i></div>
+              <span>Spotify</span>
+            </div>
+            <div class="app-card" data-app="Web Browser" data-id="org.tizen.browser">
+              <div class="app-icon safari-bg"><i data-lucide="compass"></i></div>
+              <span>Internet</span>
+            </div>
+            <div class="app-card" data-app="Twitch" data-id="3201601007230">
+              <div class="app-icon twitch-bg"><i data-lucide="twitch"></i></div>
+              <span>Twitch</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODAL SHEET 3: DEVICE DISCOVERY MODAL -->
+        <div class="ios-modal-sheet" id="discoverySheet">
+          <div class="sheet-drag-handle"></div>
+          <div class="sheet-header">
+            <div>
+              <h3>Kết nối TV Samsung</h3>
+              <p class="sheet-sub">Quét Wi-Fi nội bộ bằng SSDP & Subnet Probe</p>
+            </div>
+            <button class="sheet-close-btn" id="closeDiscoveryBtn">
+              <i data-lucide="x"></i>
+            </button>
+          </div>
+          <div class="discovery-content">
+            <div class="scan-card">
+              <div class="scan-info">
+                <span class="scan-title">Quét mạng Wi-Fi</span>
+                <span class="scan-status" id="scanStatusLabel">Đang quét thiết bị xung quanh...</span>
+              </div>
+              <button class="rescan-btn" id="rescanBtn">
+                <i data-lucide="refresh-cw"></i> Quét lại
+              </button>
+            </div>
+
+            <div class="device-list-section">
+              <div class="section-label">THIẾT BỊ TÌM THẤY</div>
+              <div class="device-card active" data-ip="192.168.1.150" data-name="Samsung Neo QLED 65">
+                <div class="tv-badge-icon"><i data-lucide="tv"></i></div>
+                <div class="tv-info">
+                  <div class="tv-name">Samsung Neo QLED 65"</div>
+                  <div class="tv-meta">192.168.1.150 • Tizen OS 2024</div>
+                </div>
+                <i data-lucide="check-circle-2" class="check-icon"></i>
+              </div>
+              <div class="device-card" data-ip="192.168.1.182" data-name="Phòng ngủ Samsung The Frame">
+                <div class="tv-badge-icon"><i data-lucide="tv"></i></div>
+                <div class="tv-info">
+                  <div class="tv-name">Samsung The Frame 55"</div>
+                  <div class="tv-meta">192.168.1.182 • Tizen OS 2023</div>
+                </div>
+                <i data-lucide="chevron-right" class="arrow-icon"></i>
+              </div>
+            </div>
+
+            <!-- Manual IP Form -->
+            <div class="manual-ip-card">
+              <div class="section-label">KẾT NỐI BẰNG ĐỊA CHỈ IP THỦ CÔNG</div>
+              <div class="ip-input-row">
+                <input type="text" id="manualIpInput" placeholder="Ví dụ: 192.168.1.150" value="192.168.1.150">
+                <button class="connect-ip-btn" id="manualConnectBtn">Kết nối</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MODAL SHEET 4: SMART KEYBOARD & TEXT INPUT MODAL -->
+        <div class="ios-modal-sheet" id="keyboardSheet">
+          <div class="sheet-drag-handle"></div>
+          <div class="sheet-header">
+            <div>
+              <h3>Bàn phím nhập chữ TV</h3>
+              <p class="sheet-sub">Gõ chữ hoặc dán văn bản để tìm kiếm trên YouTube / TV</p>
+            </div>
+            <button class="sheet-close-btn" id="closeKeyboardBtn">
+              <i data-lucide="x"></i>
+            </button>
+          </div>
+          
+          <div class="keyboard-content">
+            <!-- Search Input Box -->
+            <div class="search-input-box">
+              <i data-lucide="search" class="search-icon"></i>
+              <input type="text" id="tvTextInput" placeholder="Nhập từ khóa tìm kiếm (YouTube, Phim...)" autocomplete="off">
+              <button class="clear-input-btn" id="clearTvTextInput" style="display: none;">
+                <i data-lucide="x-circle"></i>
+              </button>
+              <button class="send-text-btn" id="sendTvTextBtn">
+                <span>Gửi</span>
+                <i data-lucide="arrow-up-circle"></i>
+              </button>
+            </div>
+
+            <!-- Quick Suggestions Pills -->
+            <div class="quick-chips-wrapper">
+              <div class="quick-chips-scroll">
+                <button class="chip-btn" data-text="YouTube">YouTube</button>
+                <button class="chip-btn" data-text="Nhạc Remix">Nhạc Remix</button>
+                <button class="chip-btn" data-text="Phim Mới">Phim Mới</button>
+                <button class="chip-btn" data-text="Karaoke">Karaoke</button>
+                <button class="chip-btn" data-text="Bóng đá">Bóng đá</button>
+                <button class="chip-btn" data-text="Tin tức 24h">Tin tức 24h</button>
+              </div>
+            </div>
+
+            <!-- Keyboard Quick Action Keys -->
+            <div class="keyboard-action-keys">
+              <button class="kb-action-btn" id="kbBackspaceBtn">
+                <i data-lucide="delete"></i>
+                <span>Xóa (Back)</span>
+              </button>
+              <button class="kb-action-btn" id="kbSpaceBtn">
+                <span>Dấu cách (Space)</span>
+              </button>
+              <button class="kb-action-btn primary" id="kbEnterBtn">
+                <i data-lucide="search"></i>
+                <span>Tìm (Enter)</span>
+              </button>
+            </div>
+
+            <div class="keyboard-tip-card">
+              <i data-lucide="info" class="tip-icon"></i>
+              <div class="tip-text">
+                <strong>Cách hoạt động với Samsung Tizen OS:</strong>
+                <p>Chuỗi ký tự được mã hóa Base64 và gửi qua giao thức WebSocket <code>SendInputString</code>. Bạn có thể dùng bàn phím iPhone hoặc bấm biểu tượng Micro trên bàn phím iOS để nói bằng giọng nói thành chữ siêu nhanh!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sheet Backdrop Overlay -->
+        <div class="sheet-backdrop" id="sheetBackdrop"></div>
+
+      </div><!-- /iphone-frame -->
+    </main>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

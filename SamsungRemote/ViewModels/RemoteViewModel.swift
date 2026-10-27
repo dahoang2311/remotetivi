@@ -14,6 +14,7 @@ final class RemoteViewModel: ObservableObject, SamsungTVServiceDelegate {
     @Published var showDiscoverySheet: Bool = false
     @Published var showKeypadSheet: Bool = false
     @Published var showAppLauncherSheet: Bool = false
+    @Published var showKeyboardSheet: Bool = false
     
     // Alerts
     @Published var alertMessage: String?
@@ -168,6 +169,20 @@ final class RemoteViewModel: ObservableObject, SamsungTVServiceDelegate {
             if !success && !(self?.connectionState.isConnected ?? false) {
                 // TV is disconnected
                 print("[RemoteViewModel] Failed to send key \(key.rawValue) - disconnected")
+            }
+        }
+    }
+    
+    /// Sends a full text string to the TV (e.g. YouTube search or Netflix text input).
+    func sendText(_ text: String) {
+        guard activeDevice != nil else {
+            presentAlert("No TV Selected", message: "Please connect to your TV first.")
+            return
+        }
+        haptic.triggerTap()
+        tvService.sendText(text) { success in
+            if !success {
+                print("[RemoteViewModel] Failed to send text: \(text)")
             }
         }
     }

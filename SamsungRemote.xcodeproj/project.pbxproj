@@ -26,6 +26,7 @@
 		AA0100162900000100000001 /* DeviceDiscoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200162900000100000001 /* DeviceDiscoveryView.swift */; };
 		AA0100172900000100000001 /* NumericKeypadSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200172900000100000001 /* NumericKeypadSheet.swift */; };
 		AA0100182900000100000001 /* AppLauncherSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200182900000100000001 /* AppLauncherSheet.swift */; };
+		AA0100222900000100000001 /* SmartKeyboardSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200222900000100000001 /* SmartKeyboardSheet.swift */; };
 		AA0100202900000100000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA0200202900000100000001 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		AA0200162900000100000001 /* DeviceDiscoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDiscoveryView.swift; sourceTree = "<group>"; };
 		AA0200172900000100000001 /* NumericKeypadSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericKeypadSheet.swift; sourceTree = "<group>"; };
 		AA0200182900000100000001 /* AppLauncherSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLauncherSheet.swift; sourceTree = "<group>"; };
+		AA0200222900000100000001 /* SmartKeyboardSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartKeyboardSheet.swift; sourceTree = "<group>"; };
 		AA0200192900000100000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AA0200202900000100000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -152,6 +154,7 @@
 				AA0200162900000100000001 /* DeviceDiscoveryView.swift */,
 				AA0200172900000100000001 /* NumericKeypadSheet.swift */,
 				AA0200182900000100000001 /* AppLauncherSheet.swift */,
+				AA0200222900000100000001 /* SmartKeyboardSheet.swift */,
 			);
 			path = Sheets;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 				AA0100162900000100000001 /* DeviceDiscoveryView.swift in Sources */,
 				AA0100172900000100000001 /* NumericKeypadSheet.swift in Sources */,
 				AA0100182900000100000001 /* AppLauncherSheet.swift in Sources */,
+				AA0100222900000100000001 /* SmartKeyboardSheet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
