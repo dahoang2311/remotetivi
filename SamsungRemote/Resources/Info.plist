@@ -11,7 +11,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>$(PRODUCT_NAME)</string>
+	<string>DaRemote</string>
+	<key>CFBundleDisplayName</key>
+	<string>DaRemote</string>
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
@@ -23,7 +25,7 @@
 
 	<!-- Local Network Permission description for iOS 14+ -->
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>Samsung Smart Remote requires access to your local Wi-Fi network to detect and securely communicate with your Samsung Smart TV.</string>
+	<string>DaRemote requires access to your local Wi-Fi network to detect and securely communicate with your Samsung Smart TV.</string>
 
 	<!-- Bonjour / mDNS Service Types for Samsung TV Discovery -->
 	<key>NSBonjourServices</key>

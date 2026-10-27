@@ -12,7 +12,7 @@ struct SmartKeyboardSheet: View {
     @FocusState private var isInputFocused: Bool
     
     // Quick search suggestions
-    private let quickSuggestions = ["YouTube", "Nhạc Remix", "Phim Mới", "Tin tức", "Karaoke", "Bóng đá"]
+    private let quickSuggestions = ["Nhạc thiếu nhi", "Hoạt hình", "Karaoke", "Bóng đá"]
     
     var body: some View {
         ZStack {
@@ -150,7 +150,7 @@ struct SmartKeyboardSheet: View {
                     }) {
                         HStack {
                             Image(systemName: "delete.left.fill")
-                            Text("Xóa (Back)")
+                            Text("Xóa")
                         }
                         .font(.system(size: 13, weight: .semibold))
                         .foregroundColor(.white)
@@ -166,7 +166,7 @@ struct SmartKeyboardSheet: View {
                         inputText += " "
                         onSendText(" ")
                     }) {
-                        Text("Dấu cách (Space)")
+                        Text("Dấu cách")
                             .font(.system(size: 13, weight: .semibold))
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)
@@ -182,7 +182,7 @@ struct SmartKeyboardSheet: View {
                     }) {
                         HStack {
                             Image(systemName: "magnifyingglass")
-                            Text("Tìm (Enter)")
+                            Text("Tìm")
                         }
                         .font(.system(size: 13, weight: .semibold))
                         .foregroundColor(.white)
