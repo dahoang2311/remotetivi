@@ -233,21 +233,23 @@ final class SSDPDiscoveryService: ObservableObject {
     // MARK: - Wi-Fi IP Helper
     
     private func getWiFiAddress() -> String? {
+        #if canImport(Darwin)
         var address: String?
         var ifaddr: UnsafeMutablePointer<ifaddrs>?
         guard getifaddrs(&ifaddr) == 0, let firstAddr = ifaddr else { return nil }
+        defer { freeifaddrs(firstAddr) }
         
         for ptr in sequence(first: firstAddr, next: { $0.pointee.ifa_next }) {
             let flags = Int32(ptr.pointee.ifa_flags)
-            var addr = ptr.pointee.ifa_addr.pointee
+            guard let ifaAddr = ptr.pointee.ifa_addr else { continue }
             
             // Check for running, non-loopback IPv4 interface (typically en0 for Wi-Fi)
             if (flags & (IFF_UP | IFF_RUNNING | IFF_LOOPBACK)) == (IFF_UP | IFF_RUNNING) {
-                if addr.sa_family == UInt8(AF_INET) {
+                if ifaAddr.pointee.sa_family == UInt8(AF_INET) {
                     let name = String(cString: ptr.pointee.ifa_name)
                     if name == "en0" {
                         var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
-                        if getnameinfo(&addr, socklen_t(addr.sa_len), &hostname, socklen_t(hostname.count),
+                        if getnameinfo(ifaAddr, socklen_t(ifaAddr.pointee.sa_len), &hostname, socklen_t(hostname.count),
                                        nil, socklen_t(0), NI_NUMERICHOST) == 0 {
                             address = String(cString: hostname)
                         }
@@ -255,8 +257,10 @@ final class SSDPDiscoveryService: ObservableObject {
                 }
             }
         }
-        freeifaddrs(ifaddr)
         return address
+        #else
+        return nil
+        #endif
     }
 }
 

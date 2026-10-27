@@ -15,29 +15,29 @@ jobs:
     - name: Checkout Repository
       uses: actions/checkout@v4
 
-    - name: Display Xcode Environment & Available Schemes
+    - name: Display Xcode Environment & Schemes
       run: |
         xcodebuild -version
         xcodebuild -list -project SamsungRemote.xcodeproj
 
-    - name: Build and Archive for iOS Device (Release)
+    - name: Compile and Build for iOS Device (Unsigned)
       run: |
         xcodebuild -project SamsungRemote.xcodeproj \
                    -scheme SamsungRemote \
                    -configuration Release \
                    -sdk iphoneos \
-                   -archivePath build/SamsungRemote.xcarchive \
-                   CODE_SIGNING_ALLOWED=NO \
-                   CODE_SIGNING_REQUIRED=NO \
+                   -derivedDataPath build \
                    CODE_SIGN_IDENTITY="" \
-                   clean archive
+                   CODE_SIGNING_REQUIRED=NO \
+                   CODE_SIGNING_ALLOWED=NO \
+                   build
 
-    - name: Package Payload into IPA
+    - name: Package App into IPA
       run: |
         mkdir -p build/Payload
-        cp -r build/SamsungRemote.xcarchive/Products/Applications/SamsungRemote.app build/Payload/
+        cp -r build/Build/Products/Release-iphoneos/SamsungRemote.app build/Payload/
         cd build && zip -r -y SamsungRemote.ipa Payload
-        echo "Successfully packaged SamsungRemote.ipa"
+        echo "Successfully created SamsungRemote.ipa"
 
     - name: Upload IPA Artifact
       uses: actions/upload-artifact@v4
