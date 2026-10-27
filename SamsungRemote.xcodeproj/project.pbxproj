@@ -1,0 +1,392 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AA0100012900000100000001 /* SamsungRemoteApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200012900000100000001 /* SamsungRemoteApp.swift */; };
+		AA0100022900000100000001 /* SamsungDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200022900000100000001 /* SamsungDevice.swift */; };
+		AA0100032900000100000001 /* SamsungKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200032900000100000001 /* SamsungKey.swift */; };
+		AA0100042900000100000001 /* SamsungApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200042900000100000001 /* SamsungApp.swift */; };
+		AA0100052900000100000001 /* TVConnectionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200052900000100000001 /* TVConnectionState.swift */; };
+		AA0100062900000100000001 /* SamsungTVService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200062900000100000001 /* SamsungTVService.swift */; };
+		AA0100072900000100000001 /* SSDPDiscoveryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200072900000100000001 /* SSDPDiscoveryService.swift */; };
+		AA0100082900000100000001 /* WakeOnLANService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200082900000100000001 /* WakeOnLANService.swift */; };
+		AA0100092900000100000001 /* HapticManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200092900000100000001 /* HapticManager.swift */; };
+		AA0100212900000100000001 /* KeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200212900000100000001 /* KeychainHelper.swift */; };
+		AA0100102900000100000001 /* RemoteViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200102900000100000001 /* RemoteViewModel.swift */; };
+		AA0100112900000100000001 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200112900000100000001 /* ContentView.swift */; };
+		AA0100122900000100000001 /* RemoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200122900000100000001 /* RemoteButton.swift */; };
+		AA0100132900000100000001 /* DPadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200132900000100000001 /* DPadView.swift */; };
+		AA0100142900000100000001 /* RockerControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200142900000100000001 /* RockerControlView.swift */; };
+		AA0100152900000100000001 /* ConnectionStatusBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200152900000100000001 /* ConnectionStatusBadge.swift */; };
+		AA0100162900000100000001 /* DeviceDiscoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200162900000100000001 /* DeviceDiscoveryView.swift */; };
+		AA0100172900000100000001 /* NumericKeypadSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200172900000100000001 /* NumericKeypadSheet.swift */; };
+		AA0100182900000100000001 /* AppLauncherSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0200182900000100000001 /* AppLauncherSheet.swift */; };
+		AA0100202900000100000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AA0200202900000100000001 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		AA0200002900000100000001 /* SamsungRemote.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SamsungRemote.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA0200012900000100000001 /* SamsungRemoteApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamsungRemoteApp.swift; sourceTree = "<group>"; };
+		AA0200022900000100000001 /* SamsungDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamsungDevice.swift; sourceTree = "<group>"; };
+		AA0200032900000100000001 /* SamsungKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamsungKey.swift; sourceTree = "<group>"; };
+		AA0200042900000100000001 /* SamsungApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamsungApp.swift; sourceTree = "<group>"; };
+		AA0200052900000100000001 /* TVConnectionState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVConnectionState.swift; sourceTree = "<group>"; };
+		AA0200062900000100000001 /* SamsungTVService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SamsungTVService.swift; sourceTree = "<group>"; };
+		AA0200072900000100000001 /* SSDPDiscoveryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSDPDiscoveryService.swift; sourceTree = "<group>"; };
+		AA0200082900000100000001 /* WakeOnLANService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WakeOnLANService.swift; sourceTree = "<group>"; };
+		AA0200092900000100000001 /* HapticManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticManager.swift; sourceTree = "<group>"; };
+		AA0200212900000100000001 /* KeychainHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainHelper.swift; sourceTree = "<group>"; };
+		AA0200102900000100000001 /* RemoteViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteViewModel.swift; sourceTree = "<group>"; };
+		AA0200112900000100000001 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		AA0200122900000100000001 /* RemoteButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteButton.swift; sourceTree = "<group>"; };
+		AA0200132900000100000001 /* DPadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DPadView.swift; sourceTree = "<group>"; };
+		AA0200142900000100000001 /* RockerControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockerControlView.swift; sourceTree = "<group>"; };
+		AA0200152900000100000001 /* ConnectionStatusBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionStatusBadge.swift; sourceTree = "<group>"; };
+		AA0200162900000100000001 /* DeviceDiscoveryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDiscoveryView.swift; sourceTree = "<group>"; };
+		AA0200172900000100000001 /* NumericKeypadSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumericKeypadSheet.swift; sourceTree = "<group>"; };
+		AA0200182900000100000001 /* AppLauncherSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLauncherSheet.swift; sourceTree = "<group>"; };
+		AA0200192900000100000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AA0200202900000100000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AA0300012900000100000001 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AA0400012900000100000001 = {
+			isa = PBXGroup;
+			children = (
+				AA0400022900000100000001 /* SamsungRemote */,
+				AA0400082900000100000001 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AA0400022900000100000001 /* SamsungRemote */ = {
+			isa = PBXGroup;
+			children = (
+				AA0400032900000100000001 /* App */,
+				AA0400042900000100000001 /* Models */,
+				AA0400052900000100000001 /* Services */,
+				AA0400062900000100000001 /* ViewModels */,
+				AA0400072900000100000001 /* Views */,
+				AA0400092900000100000001 /* Resources */,
+			);
+			path = SamsungRemote;
+			sourceTree = "<group>";
+		};
+		AA0400032900000100000001 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				AA0200012900000100000001 /* SamsungRemoteApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		AA0400042900000100000001 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				AA0200022900000100000001 /* SamsungDevice.swift */,
+				AA0200032900000100000001 /* SamsungKey.swift */,
+				AA0200042900000100000001 /* SamsungApp.swift */,
+				AA0200052900000100000001 /* TVConnectionState.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		AA0400052900000100000001 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				AA0200062900000100000001 /* SamsungTVService.swift */,
+				AA0200072900000100000001 /* SSDPDiscoveryService.swift */,
+				AA0200082900000100000001 /* WakeOnLANService.swift */,
+				AA0200092900000100000001 /* HapticManager.swift */,
+				AA0200212900000100000001 /* KeychainHelper.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		AA0400062900000100000001 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				AA0200102900000100000001 /* RemoteViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		AA0400072900000100000001 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				AA0200112900000100000001 /* ContentView.swift */,
+				AA0400102900000100000001 /* Components */,
+				AA0400112900000100000001 /* Sheets */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		AA0400102900000100000001 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				AA0200122900000100000001 /* RemoteButton.swift */,
+				AA0200132900000100000001 /* DPadView.swift */,
+				AA0200142900000100000001 /* RockerControlView.swift */,
+				AA0200152900000100000001 /* ConnectionStatusBadge.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		AA0400112900000100000001 /* Sheets */ = {
+			isa = PBXGroup;
+			children = (
+				AA0200162900000100000001 /* DeviceDiscoveryView.swift */,
+				AA0200172900000100000001 /* NumericKeypadSheet.swift */,
+				AA0200182900000100000001 /* AppLauncherSheet.swift */,
+			);
+			path = Sheets;
+			sourceTree = "<group>";
+		};
+		AA0400082900000100000001 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AA0200002900000100000001 /* SamsungRemote.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AA0400092900000100000001 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				AA0200192900000100000001 /* Info.plist */,
+				AA0200202900000100000001 /* Assets.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AA0500012900000100000001 /* SamsungRemote */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA0600012900000100000001 /* Build configuration list for PBXNativeTarget "SamsungRemote" */;
+			buildPhases = (
+				AA0700012900000100000001 /* Sources */,
+				AA0300012900000100000001 /* Frameworks */,
+				AA0800012900000100000001 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SamsungRemote;
+			productName = SamsungRemote;
+			productReference = AA0200002900000100000001 /* SamsungRemote.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AA0000012900000100000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					AA0500012900000100000001 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = AA0900012900000100000001 /* Build configuration list for PBXProject "SamsungRemote" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AA0400012900000100000001;
+			productRefGroup = AA0400082900000100000001 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AA0500012900000100000001 /* SamsungRemote */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AA0800012900000100000001 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0100202900000100000001 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AA0700012900000100000001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA0100012900000100000001 /* SamsungRemoteApp.swift in Sources */,
+				AA0100022900000100000001 /* SamsungDevice.swift in Sources */,
+				AA0100032900000100000001 /* SamsungKey.swift in Sources */,
+				AA0100042900000100000001 /* SamsungApp.swift in Sources */,
+				AA0100052900000100000001 /* TVConnectionState.swift in Sources */,
+				AA0100062900000100000001 /* SamsungTVService.swift in Sources */,
+				AA0100072900000100000001 /* SSDPDiscoveryService.swift in Sources */,
+				AA0100082900000100000001 /* WakeOnLANService.swift in Sources */,
+				AA0100092900000100000001 /* HapticManager.swift in Sources */,
+				AA0100212900000100000001 /* KeychainHelper.swift in Sources */,
+				AA0100102900000100000001 /* RemoteViewModel.swift in Sources */,
+				AA0100112900000100000001 /* ContentView.swift in Sources */,
+				AA0100122900000100000001 /* RemoteButton.swift in Sources */,
+				AA0100132900000100000001 /* DPadView.swift in Sources */,
+				AA0100142900000100000001 /* RockerControlView.swift in Sources */,
+				AA0100152900000100000001 /* ConnectionStatusBadge.swift in Sources */,
+				AA0100162900000100000001 /* DeviceDiscoveryView.swift in Sources */,
+				AA0100172900000100000001 /* NumericKeypadSheet.swift in Sources */,
+				AA0100182900000100000001 /* AppLauncherSheet.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		AA1000012900000100000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		AA1000022900000100000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AA1000032900000100000001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SamsungRemote/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.antigravity.SamsungRemote;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AA1000042900000100000001 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = SamsungRemote/Resources/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.antigravity.SamsungRemote;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AA0600012900000100000001 /* Build configuration list for PBXNativeTarget "SamsungRemote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA1000032900000100000001 /* Debug */,
+				AA1000042900000100000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA0900012900000100000001 /* Build configuration list for PBXProject "SamsungRemote" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA1000012900000100000001 /* Debug */,
+				AA1000022900000100000001 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = AA0000012900000100000001 /* Project object */;
+}
