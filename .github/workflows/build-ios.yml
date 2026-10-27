@@ -21,8 +21,9 @@ jobs:
         xcodebuild -list -project SamsungRemote.xcodeproj
 
     - name: Compile and Build for iOS Device (Unsigned)
+      id: xcodebuild_step
       run: |
-        set -o pipefail
+        set +e
         xcodebuild -project SamsungRemote.xcodeproj \
                    -scheme SamsungRemote \
                    -configuration Release \
@@ -33,9 +34,23 @@ jobs:
                    CODE_SIGNING_REQUIRED=NO \
                    CODE_SIGN_IDENTITY="" \
                    AD_HOC_CODE_SIGNING_ALLOWED=YES \
-                   build 2>&1 | tee xcodebuild.log || (echo "=== BUILD LOG FAILURE ===" && tail -n 120 xcodebuild.log && exit 1)
+                   build > xcodebuild.log 2>&1
+        BUILD_STATUS=$?
+        echo "BUILD_STATUS=$BUILD_STATUS" >> $GITHUB_ENV
+        
+        echo "### Build Log Diagnostics" >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
+        grep -E "error:|fatal error:|FAILED|Signing" xcodebuild.log | head -n 40 >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
+        
+        if [ $BUILD_STATUS -ne 0 ]; then
+          echo "=== XCODEBUILD FAILED (Status $BUILD_STATUS) ==="
+          tail -n 100 xcodebuild.log
+          exit $BUILD_STATUS
+        fi
 
     - name: Package App into IPA
+      if: success()
       run: |
         mkdir -p build/Payload
         cp -r build/Build/Products/Release-iphoneos/SamsungRemote.app build/Payload/
@@ -43,8 +58,17 @@ jobs:
         echo "Successfully created SamsungRemote.ipa"
 
     - name: Upload IPA Artifact
+      if: success()
       uses: actions/upload-artifact@v4
       with:
         name: SamsungRemote-IPA
         path: build/SamsungRemote.ipa
+        retention-days: 7
+
+    - name: Upload Diagnostic Build Log
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: Xcode-Build-Log
+        path: xcodebuild.log
         retention-days: 7
