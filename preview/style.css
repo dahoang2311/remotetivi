@@ -551,168 +551,189 @@ body {
 }
 
 /* ==========================================================================
-   Utility Bar (1 2 3, Apps, Search, Menu)
+   Top Circle Action Row (Keyboard, 123, Google Assistant)
    ========================================================================== */
 
-.utility-bar {
+.top-circle-row {
   display: flex;
-  justify-content: space-between;
-  gap: 10px;
+  justify-content: center;
+  gap: 26px;
   z-index: 5;
+  margin: 2px 0;
 }
 
-.pill-shortcut-btn {
-  flex: 1;
-  height: 38px;
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.08) 100%);
-  border: 1px solid var(--ios-card-border);
-  border-radius: 20px;
+.circle-feature-btn {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0.08) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
   color: #fff;
-  font-size: 13px;
-  font-weight: 700;
-  font-family: var(--font-rounded);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  font-size: 15px;
+  font-weight: 800;
+  font-family: var(--font-rounded);
   cursor: pointer;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
-  transition: transform 0.12s ease, background 0.2s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.12s, background 0.15s;
 }
 
-.pill-shortcut-btn svg {
-  width: 15px;
-  height: 15px;
-}
-
-.pill-shortcut-btn.icon-only {
-  flex: 0 0 42px;
-}
-
-.pill-shortcut-btn:active {
-  transform: scale(0.92);
+.circle-feature-btn:active {
+  transform: scale(0.90);
   background: rgba(255, 255, 255, 0.22);
 }
 
+.circle-feature-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.assistant-btn {
+  display: flex;
+  gap: 3.5px;
+  align-items: center;
+  justify-content: center;
+}
+
+.assistant-btn span {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+
+.dot-blue { background: #4285F4; box-shadow: 0 0 5px #4285F4; }
+.dot-red { background: #EA4335; box-shadow: 0 0 5px #EA4335; }
+.dot-yellow { background: #FBBC05; box-shadow: 0 0 5px #FBBC05; }
+.dot-green { background: #34A853; box-shadow: 0 0 5px #34A853; }
+
 /* ==========================================================================
-   D-Pad Navigation Section
+   D-Pad Navigation Section (Corner Icons & Blue Wheel)
    ========================================================================== */
 
 .dpad-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 4px 0;
+  margin: 2px 0;
   z-index: 5;
 }
 
 .flank-col {
   display: flex;
   flex-direction: column;
-  gap: 22px;
+  justify-content: space-between;
+  height: 180px;
 }
 
-.circular-flank-btn {
-  width: 48px;
-  height: 48px;
+.corner-icon-btn {
+  width: 44px;
+  height: 44px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
   border-radius: 50%;
+  transition: transform 0.1s, opacity 0.1s;
 }
 
-.circular-flank-btn svg {
-  width: 19px;
-  height: 19px;
+.corner-icon-btn:active {
+  transform: scale(0.88);
+  opacity: 0.7;
 }
 
-.home-btn {
-  color: var(--color-cyan);
+.corner-icon-btn svg {
+  width: 22px;
+  height: 22px;
 }
 
-/* Circular D-Pad Outer Ring */
-.dpad-ring {
-  width: 210px;
-  height: 210px;
+/* Circular Vibrant Blue D-Pad Outer Ring */
+.dpad-ring.blue-wheel {
+  width: 212px;
+  height: 212px;
   border-radius: 50%;
-  background: linear-gradient(145deg, #242833 0%, #151820 100%);
-  border: 1.5px solid rgba(255, 255, 255, 0.20);
+  background: linear-gradient(180deg, #2698f7 0%, #136fe2 100%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   box-shadow: 
-    0 12px 30px rgba(0, 0, 0, 0.6),
-    inset 0 1px 2px rgba(255, 255, 255, 0.2);
+    0 12px 30px rgba(19, 111, 226, 0.45),
+    inset 0 1px 3px rgba(255, 255, 255, 0.4);
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.dpad-direction {
+.blue-wheel .dpad-direction {
   position: absolute;
   background: transparent;
   border: none;
-  color: rgba(255, 255, 255, 0.85);
+  color: #fff;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.1s ease, color 0.1s;
+  transition: transform 0.1s ease;
 }
 
-.dpad-direction:active {
+.blue-wheel .dpad-direction:active {
   transform: scale(0.86);
-  color: var(--color-blue);
 }
 
-.dpad-direction svg {
+.blue-wheel .dpad-direction svg {
   width: 24px;
   height: 24px;
 }
 
-.dpad-direction.up { top: 12px; width: 80px; height: 50px; }
-.dpad-direction.down { bottom: 12px; width: 80px; height: 50px; }
-.dpad-direction.left { left: 12px; width: 50px; height: 80px; }
-.dpad-direction.right { right: 12px; width: 50px; height: 80px; }
+.blue-wheel .dpad-direction.up { top: 12px; width: 80px; height: 50px; }
+.blue-wheel .dpad-direction.down { bottom: 12px; width: 80px; height: 50px; }
+.blue-wheel .dpad-direction.left { left: 12px; width: 50px; height: 80px; }
+.blue-wheel .dpad-direction.right { right: 12px; width: 50px; height: 80px; }
 
-/* Center OK Button */
-.dpad-center-ok {
-  width: 80px;
-  height: 80px;
+/* Center OK Button with Thin White Stroke Ring */
+.blue-wheel .dpad-center-ok {
+  width: 82px;
+  height: 82px;
   border-radius: 50%;
-  background: linear-gradient(145deg, #373c4d 0%, #252834 100%);
-  border: 1.5px solid rgba(255, 255, 255, 0.25);
-  box-shadow: 
-    0 4px 12px rgba(0, 0, 0, 0.4),
-    inset 0 1px 2px rgba(255, 255, 255, 0.25);
+  background: linear-gradient(180deg, #2293f6 0%, #1572e4 100%);
+  border: 1.5px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
   color: #fff;
   font-family: var(--font-rounded);
   font-size: 17px;
-  font-weight: 800;
+  font-weight: 700;
+  text-transform: lowercase;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 2;
-  transition: transform 0.12s ease, background 0.15s;
+  transition: transform 0.12s ease;
 }
 
-.dpad-center-ok:active {
-  transform: scale(0.88);
-  background: linear-gradient(145deg, #252834 0%, #1a1d26 100%);
+.blue-wheel .dpad-center-ok:active {
+  transform: scale(0.90);
 }
 
 /* ==========================================================================
-   Volume & Channel Rockers Section
+   Volume & Channel Rockers Section with Center 2x2 Grid
    ========================================================================== */
 
 .rockers-section {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin: 4px 0;
+  margin: 2px 0;
   z-index: 5;
 }
 
 /* Elongated Pill Rocker */
 .rocker-control {
   width: 56px;
-  height: 132px;
+  height: 130px;
   border-radius: 28px;
   background: linear-gradient(180deg, #262934 0%, #191c24 100%);
   border: 1.2px solid rgba(255, 255, 255, 0.16);
@@ -756,34 +777,94 @@ body {
   font-size: 11px;
   font-weight: 800;
   font-family: var(--font-rounded);
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.5);
   letter-spacing: 0.5px;
+  text-transform: lowercase;
 }
 
-/* Center Media Controls */
-.center-media-controls {
+/* Center 2x2 Grid (Mute, Settings, List, Guide) */
+.center-grid-2x2 {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
-.circular-media-btn {
-  width: 50px;
+.grid-row {
+  display: flex;
+  gap: 14px;
+}
+
+.grid-circle-btn {
+  width: 48px;
   height: 48px;
-  border-radius: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.08) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.12s, background 0.15s;
 }
 
-.circular-media-btn svg {
-  width: 18px;
-  height: 18px;
+.grid-circle-btn:active {
+  transform: scale(0.90);
+  background: rgba(255, 255, 255, 0.22);
 }
 
-.mute-btn {
-  color: var(--color-orange);
+.grid-circle-btn svg {
+  width: 19px;
+  height: 19px;
+}
+
+.grid-circle-btn.text-btn {
+  font-size: 13px;
+  font-weight: 700;
+  font-family: var(--font-rounded);
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: lowercase;
 }
 
 /* ==========================================================================
-   Bottom Quick App Launcher Dock
+   Media Playback Controls Row (<<, >, ||, >>)
+   ========================================================================== */
+
+.playback-controls-row {
+  display: flex;
+  gap: 8px;
+  z-index: 5;
+  margin: 2px 0;
+}
+
+.playback-pill-btn {
+  flex: 1;
+  height: 38px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(255, 255, 255, 0.07) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  transition: transform 0.12s, background 0.15s;
+}
+
+.playback-pill-btn:active {
+  transform: scale(0.92);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.playback-pill-btn svg {
+  width: 17px;
+  height: 17px;
+}
+
+/* ==========================================================================
+   Bottom Quick App Launcher Dock (YouTube, Netflix, VTV Go, FPT Play)
    ========================================================================== */
 
 .quick-app-dock {
@@ -794,7 +875,7 @@ body {
 
 .quick-app-pill {
   flex: 1;
-  height: 40px;
+  height: 38px;
   background: rgba(255, 255, 255, 0.12);
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 14px;
@@ -805,7 +886,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 5px;
   cursor: pointer;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   transition: transform 0.12s ease, background 0.2s;
@@ -824,6 +905,7 @@ body {
 .app-color-badge.red { background: #e50914; box-shadow: 0 0 6px #e50914; }
 .app-color-badge.red-bright { background: #ff0000; box-shadow: 0 0 6px #ff0000; }
 .app-color-badge.cyan { background: #00a8e1; box-shadow: 0 0 6px #00a8e1; }
+.app-color-badge.orange { background: #ff6600; box-shadow: 0 0 6px #ff6600; }
 .app-color-badge.gray { background: #aaa; }
 
 /* Home Indicator */

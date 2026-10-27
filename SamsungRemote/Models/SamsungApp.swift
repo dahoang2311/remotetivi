@@ -20,16 +20,28 @@ struct SamsungApp: Identifiable, Hashable {
     /// Curated list of popular Samsung Smart TV apps with official Tizen App IDs
     static let popularApps: [SamsungApp] = [
         SamsungApp(
+            id: "111299001912", // YouTube Tizen App ID (also 3201512006785)
+            name: "YouTube",
+            iconName: "play.tv.fill",
+            accentColor: Color(red: 1.0, green: 0.0, blue: 0.0)
+        ),
+        SamsungApp(
             id: "3201907018807", // Netflix Tizen App ID (also 11101200001)
             name: "Netflix",
             iconName: "play.rectangle.fill",
             accentColor: Color(red: 0.89, green: 0.04, blue: 0.08)
         ),
         SamsungApp(
-            id: "111299001912", // YouTube Tizen App ID (also 3201512006785)
-            name: "YouTube",
-            iconName: "play.tv.fill",
-            accentColor: Color(red: 1.0, green: 0.0, blue: 0.0)
+            id: "3201710015037", // VTV Go Tizen App ID
+            name: "VTV Go",
+            iconName: "tv.fill",
+            accentColor: Color(red: 0.88, green: 0.12, blue: 0.14)
+        ),
+        SamsungApp(
+            id: "3201601007250", // FPT Play Tizen App ID
+            name: "FPT Play",
+            iconName: "play.circle.fill",
+            accentColor: Color(red: 1.0, green: 0.42, blue: 0.0)
         ),
         SamsungApp(
             id: "3201901017640", // Prime Video Tizen App ID

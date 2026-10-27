@@ -96,10 +96,20 @@ function bindButton(id, keyName, keyCode) {
   });
 }
 
-// Top Bar
+// Top Bar & Controls
 bindButton("btnSource", "Source / Input", "KEY_SOURCE");
-bindButton("btnSearch", "Search", "KEY_SEARCH");
-bindButton("btnMenu", "Menu / Settings", "KEY_MENU");
+bindButton("btnHome", "Home (Smart Hub)", "KEY_HOME");
+bindButton("btnBack", "Back / Return", "KEY_RETURN");
+bindButton("btnExit", "Exit / Close", "KEY_EXIT");
+
+// Google Assistant / Voice Search
+const btnAssistantTrigger = document.getElementById("btnAssistantTrigger");
+if (btnAssistantTrigger) {
+  btnAssistantTrigger.addEventListener("click", () => {
+    haptic.playTap(480, 0.08);
+    logCommand("Voice Search / Assistant", "KEY_VOICE", "key");
+  });
+}
 
 // Power Button
 const btnPower = document.getElementById("btnPower");
@@ -122,21 +132,23 @@ bindButton("btnDpadLeft", "D-Pad Left", "KEY_LEFT");
 bindButton("btnDpadRight", "D-Pad Right", "KEY_RIGHT");
 bindButton("btnDpadOk", "OK / Enter", "KEY_ENTER");
 
-// Flanking Buttons
-bindButton("btnBack", "Back / Return", "KEY_RETURN");
-bindButton("btnHome", "Home (Smart Hub)", "KEY_HOME");
-bindButton("btnExit", "Exit", "KEY_EXIT");
-bindButton("btnInfo", "Info", "KEY_INFO");
-
 // Volume & Channel Rockers
 bindButton("btnVolUp", "Volume Up", "KEY_VOLUP");
 bindButton("btnVolDown", "Volume Down", "KEY_VOLDOWN");
 bindButton("btnChUp", "Channel Up", "KEY_CHUP");
 bindButton("btnChDown", "Channel Down", "KEY_CHDOWN");
 
-// Media & Mute
-bindButton("btnPlayPause", "Play / Pause", "KEY_PLAY");
+// Center 2x2 Grid (Mute, Settings, List, Guide)
 bindButton("btnMute", "Mute Sound", "KEY_MUTE");
+bindButton("btnSettings", "Settings / Tools", "KEY_TOOLS");
+bindButton("btnList", "Channel List", "KEY_CH_LIST");
+bindButton("btnGuide", "TV Guide", "KEY_GUIDE");
+
+// Playback Controls Row (<<, >, ||, >>)
+bindButton("btnRewind", "Rewind (<<)", "KEY_REWIND");
+bindButton("btnPlay", "Play (>)", "KEY_PLAY");
+bindButton("btnPause", "Pause (||)", "KEY_PAUSE");
+bindButton("btnFastForward", "Fast Forward (>>)", "KEY_FF");
 
 // Quick App Dock
 document.querySelectorAll(".quick-app-pill").forEach(pill => {

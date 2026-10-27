@@ -9,31 +9,20 @@ struct DPadView: View {
     
     var body: some View {
         ZStack {
-            // Outer Ring Background with subtle glass reflection and border
+            // Outer Ring: Vibrant Sky-to-Royal Blue Circular D-Pad
             Circle()
                 .fill(
                     LinearGradient(
                         colors: [
-                            Color(white: 0.18),
-                            Color(white: 0.12)
+                            Color(red: 0.18, green: 0.62, blue: 0.98),
+                            Color(red: 0.07, green: 0.44, blue: 0.92)
                         ],
-                        startPoint: .topLeading,
-                        endPoint: .bottomTrailing
+                        startPoint: .top,
+                        endPoint: .bottom
                     )
                 )
                 .frame(width: size, height: size)
-                .overlay(
-                    Circle()
-                        .stroke(
-                            LinearGradient(
-                                colors: [Color.white.opacity(0.22), Color.white.opacity(0.04)],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            ),
-                            lineWidth: 1.5
-                        )
-                )
-                .shadow(color: Color.black.opacity(0.55), radius: 16, x: 0, y: 8)
+                .shadow(color: Color.blue.opacity(0.35), radius: 14, x: 0, y: 6)
             
             // Directional Buttons (Up, Down, Left, Right)
             VStack {
@@ -78,7 +67,7 @@ struct DPadView: View {
             }
             .frame(width: size, height: size)
             
-            // Center OK / Enter Button
+            // Center OK / Enter Button (Thin circular white border ring with "ok")
             Button(action: {
                 onDirection(.enter)
             }) {
@@ -87,33 +76,25 @@ struct DPadView: View {
                         .fill(
                             LinearGradient(
                                 colors: [
-                                    Color(white: 0.28),
-                                    Color(white: 0.19)
+                                    Color(red: 0.15, green: 0.58, blue: 0.96),
+                                    Color(red: 0.08, green: 0.45, blue: 0.90)
                                 ],
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
+                                startPoint: .top,
+                                endPoint: .bottom
                             )
                         )
-                        .frame(width: size * 0.38, height: size * 0.38)
+                        .frame(width: size * 0.42, height: size * 0.42)
                         .overlay(
                             Circle()
-                                .stroke(
-                                    LinearGradient(
-                                        colors: [Color.white.opacity(0.3), Color.white.opacity(0.08)],
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    ),
-                                    lineWidth: 1.2
-                                )
+                                .stroke(Color.white.opacity(0.55), lineWidth: 1.5)
                         )
-                        .shadow(color: Color.black.opacity(0.4), radius: 6, x: 0, y: 3)
                     
-                    Text("OK")
+                    Text("ok")
                         .font(.system(size: 17, weight: .bold, design: .rounded))
                         .foregroundColor(.white)
                 }
             }
-            .buttonStyle(ScaleButtonStyle())
+            .buttonStyle(ScaleButtonStyle(scale: 0.90))
         }
         .frame(width: size, height: size)
     }

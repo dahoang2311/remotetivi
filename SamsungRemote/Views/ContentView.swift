@@ -8,8 +8,8 @@ struct ContentView: View {
         GeometryReader { geometry in
             let screenHeight = geometry.size.height
             let isCompact = screenHeight < 700 // iPhone SE / mini adaptation
-            let dpadSize: CGFloat = isCompact ? 190 : 216
-            let rockerHeight: CGFloat = isCompact ? 116 : 134
+            let dpadSize: CGFloat = isCompact ? 188 : 212
+            let rockerHeight: CGFloat = isCompact ? 116 : 132
             
             ZStack {
                 // Background Gradient & OLED Dark Surface
@@ -20,7 +20,6 @@ struct ContentView: View {
                 RadialGradient(
                     gradient: Gradient(colors: [
                         Color.blue.opacity(0.12),
-                        Color.purple.opacity(0.04),
                         Color.clear
                     ]),
                     center: .center,
@@ -30,29 +29,32 @@ struct ContentView: View {
                 .ignoresSafeArea()
                 
                 // Main Content
-                VStack(spacing: isCompact ? 10 : 16) {
-                    // Top Bar: Input Source, Connection Status Pill, Power Button
+                VStack(spacing: isCompact ? 8 : 12) {
+                    // Top Bar: Connection Status Badge & Power Button
                     topHeaderBar
-                        .padding(.top, 4)
+                        .padding(.top, 2)
                     
-                    // Quick Action Shortcuts: 123 Keypad, App Launcher, Search, Guide
-                    utilityBar
+                    // Top Function Row: [Keyboard] [123] [Google Assistant]
+                    topUtilityRow
                     
-                    Spacer(minLength: 4)
+                    Spacer(minLength: 2)
                     
-                    // D-Pad Navigation with Home & Back flanks
+                    // D-Pad Navigation with Home, Source, Back, Exit flanks
                     dpadSection(dpadSize: dpadSize)
                     
-                    Spacer(minLength: 4)
+                    Spacer(minLength: 2)
                     
-                    // Volume & Channel Rockers with Media Controls in Center
+                    // Volume & Channel Rockers with Center 2x2 Grid (Mute, Settings, List, Guide)
                     volumeChannelSection(rockerHeight: rockerHeight)
                     
-                    Spacer(minLength: 4)
+                    Spacer(minLength: 2)
                     
-                    // Bottom Quick App Dock
+                    // Media Playback Controls Row (<<, >, ||, >>)
+                    playbackSection
+                    
+                    // Bottom Quick App Dock (YouTube, Netflix, VTV Go, FPT Play)
                     quickAppDock
-                        .padding(.bottom, 6)
+                        .padding(.bottom, 4)
                 }
                 .padding(.horizontal, 20)
                 .frame(maxWidth: 440) // Optimal ergonomics on large Pro Max and iPad
@@ -85,7 +87,7 @@ struct ContentView: View {
             }
             .alert(isPresented: $viewModel.showAlert) {
                 Alert(
-                    title: Text("Samsung Remote"),
+                    title: Text("DaRemote"),
                     message: Text(viewModel.alertMessage ?? ""),
                     dismissButton: .default(Text("OK"))
                 )
@@ -93,22 +95,10 @@ struct ContentView: View {
         }
     }
     
-    // MARK: - Top Header Bar
+    // MARK: - Top Header Bar (Safe Area)
     
     private var topHeaderBar: some View {
-        HStack(spacing: 12) {
-            // Source / Input Button
-            RemoteButton(
-                icon: "display.2",
-                width: 48,
-                height: 48,
-                backgroundColor: Color(white: 0.15)
-            ) {
-                viewModel.sendKey(.source)
-            }
-            
-            Spacer()
-            
+        HStack {
             // Central Connection Status Pill (Tappable to scan/switch TVs)
             ConnectionStatusBadge(
                 state: viewModel.connectionState,
@@ -122,10 +112,11 @@ struct ContentView: View {
             // Power Button (Red glowing power toggle)
             RemoteButton(
                 icon: "power",
-                width: 48,
-                height: 48,
+                width: 44,
+                height: 44,
                 tintColor: .white,
                 backgroundColor: Color(red: 0.85, green: 0.18, blue: 0.22),
+                isCircle: true,
                 glowColor: Color.red
             ) {
                 viewModel.togglePower()
@@ -133,164 +124,247 @@ struct ContentView: View {
         }
     }
     
-    // MARK: - Utility Bar
+    // MARK: - Top Utility Row: Keyboard, 123, Assistant
     
-    private var utilityBar: some View {
-        HStack(spacing: 10) {
-            // Number Pad (123)
-            RemoteButton(
-                title: "1 2 3",
-                height: 40,
-                backgroundColor: Color(white: 0.15),
-                isPill: true
-            ) {
-                viewModel.showKeypadSheet = true
-            }
-            
-            // Smart Keyboard Input (YouTube & Search Typing)
+    private var topUtilityRow: some View {
+        HStack(spacing: 26) {
+            // 1. Smart Keyboard
             RemoteButton(
                 icon: "keyboard",
-                title: "Gõ chữ",
-                height: 40,
-                backgroundColor: Color(white: 0.15),
-                isPill: true
+                width: 58,
+                height: 58,
+                backgroundColor: Color(white: 0.18),
+                isCircle: true
             ) {
                 viewModel.showKeyboardSheet = true
             }
             
-            // App Launcher Drawer
+            // 2. 123 Keypad
             RemoteButton(
-                icon: "square.grid.2x2.fill",
-                title: "Apps",
-                height: 40,
-                backgroundColor: Color(white: 0.15),
-                isPill: true
+                title: "123",
+                width: 58,
+                height: 58,
+                backgroundColor: Color(white: 0.18),
+                isCircle: true
             ) {
-                viewModel.showAppLauncherSheet = true
+                viewModel.showKeypadSheet = true
             }
             
-            // Menu Button
-            RemoteButton(
-                icon: "line.3.horizontal",
-                width: 42,
-                height: 40,
-                backgroundColor: Color(white: 0.15),
-                isPill: true
-            ) {
-                viewModel.sendKey(.menu)
+            // 3. Assistant / Voice Search (4 Google colored dots)
+            Button(action: {
+                viewModel.sendKey(.voice)
+            }) {
+                ZStack {
+                    Circle()
+                        .fill(
+                            LinearGradient(
+                                colors: [Color(white: 0.22), Color(white: 0.15)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .frame(width: 58, height: 58)
+                        .overlay(
+                            Circle()
+                                .stroke(Color.white.opacity(0.12), lineWidth: 1)
+                        )
+                    
+                    HStack(spacing: 3.5) {
+                        Circle().fill(Color.blue).frame(width: 5.5, height: 5.5)
+                        Circle().fill(Color.red).frame(width: 5.5, height: 5.5)
+                        Circle().fill(Color.yellow).frame(width: 5.5, height: 5.5)
+                        Circle().fill(Color.green).frame(width: 5.5, height: 5.5)
+                    }
+                }
             }
+            .buttonStyle(TactileButtonStyle(scale: 0.92))
         }
     }
     
-    // MARK: - D-Pad Navigation Section
+    // MARK: - D-Pad Navigation Section with Corner Flanks
     
     private func dpadSection(dpadSize: CGFloat) -> some View {
-        HStack(alignment: .center, spacing: 16) {
-            // Left Flank Buttons (Back & Home)
-            VStack(spacing: 24) {
-                RemoteButton(
-                    icon: "arrow.uturn.backward",
-                    width: 50,
-                    height: 50,
-                    backgroundColor: Color(white: 0.16)
-                ) {
-                    viewModel.sendKey(.back)
+        HStack(alignment: .center, spacing: 14) {
+            // Left Flank: Home (top) and Back (bottom)
+            VStack {
+                Button(action: { viewModel.sendKey(.home) }) {
+                    Image(systemName: "house.fill")
+                        .font(.system(size: 21, weight: .semibold))
+                        .foregroundColor(.white)
+                        .frame(width: 46, height: 46)
                 }
+                .buttonStyle(TactileButtonStyle())
                 
-                RemoteButton(
-                    icon: "house.fill",
-                    width: 50,
-                    height: 50,
-                    tintColor: .cyan,
-                    backgroundColor: Color(white: 0.16)
-                ) {
-                    viewModel.sendKey(.home)
+                Spacer()
+                    .frame(height: dpadSize * 0.44)
+                
+                Button(action: { viewModel.sendKey(.back) }) {
+                    Image(systemName: "arrow.backward")
+                        .font(.system(size: 21, weight: .bold))
+                        .foregroundColor(.white)
+                        .frame(width: 46, height: 46)
                 }
+                .buttonStyle(TactileButtonStyle())
             }
             
-            // Center D-Pad
+            // Center Circular Vibrant Blue D-Pad
             DPadView(onDirection: { key in
                 viewModel.sendKey(key)
             }, size: dpadSize)
             
-            // Right Flank Buttons (Exit & Info)
-            VStack(spacing: 24) {
-                RemoteButton(
-                    icon: "xmark",
-                    width: 50,
-                    height: 50,
-                    backgroundColor: Color(white: 0.16)
-                ) {
-                    viewModel.sendKey(.exit)
+            // Right Flank: Source (top) and Exit (bottom)
+            VStack {
+                Button(action: { viewModel.sendKey(.source) }) {
+                    Image(systemName: "rectangle.portrait.and.arrow.right")
+                        .font(.system(size: 21, weight: .semibold))
+                        .foregroundColor(.white)
+                        .frame(width: 46, height: 46)
                 }
+                .buttonStyle(TactileButtonStyle())
                 
-                RemoteButton(
-                    icon: "info.circle",
-                    width: 50,
-                    height: 50,
-                    backgroundColor: Color(white: 0.16)
-                ) {
-                    viewModel.sendKey(.info)
+                Spacer()
+                    .frame(height: dpadSize * 0.44)
+                
+                Button(action: { viewModel.sendKey(.exit) }) {
+                    Image(systemName: "xmark")
+                        .font(.system(size: 20, weight: .bold))
+                        .foregroundColor(.white)
+                        .frame(width: 46, height: 46)
                 }
+                .buttonStyle(TactileButtonStyle())
             }
         }
     }
     
-    // MARK: - Volume & Channel Rockers Section
+    // MARK: - Volume & Channel Rockers Section with Center 2x2 Grid
     
     private func volumeChannelSection(rockerHeight: CGFloat) -> some View {
-        HStack(alignment: .center, spacing: 20) {
-            // Volume Rocker
+        HStack(alignment: .center, spacing: 16) {
+            // Volume Rocker (+, vol, -)
             RockerControlView(
                 topIcon: "plus",
                 bottomIcon: "minus",
-                label: "VOL",
+                label: "vol",
                 onTopAction: { viewModel.sendKey(.volumeUp) },
                 onBottomAction: { viewModel.sendKey(.volumeDown) },
+                width: 58,
                 height: rockerHeight
             )
             
-            // Center Media & Mute Controls
-            VStack(spacing: 14) {
-                // Play / Pause Toggle
-                RemoteButton(
-                    icon: "playpause.fill",
-                    width: 54,
-                    height: 50,
-                    tintColor: .white,
-                    backgroundColor: Color(white: 0.18)
-                ) {
-                    viewModel.sendKey(.play)
+            // Center 2x2 Grid: Mute, Settings, List, Guide
+            VStack(spacing: 12) {
+                HStack(spacing: 14) {
+                    // Mute
+                    RemoteButton(
+                        icon: "speaker.slash.fill",
+                        width: 52,
+                        height: 52,
+                        backgroundColor: Color(white: 0.18),
+                        isCircle: true
+                    ) {
+                        viewModel.sendKey(.mute)
+                    }
+                    
+                    // Settings / Tools
+                    RemoteButton(
+                        icon: "gearshape.fill",
+                        width: 52,
+                        height: 52,
+                        backgroundColor: Color(white: 0.18),
+                        isCircle: true
+                    ) {
+                        viewModel.sendKey(.tools)
+                    }
                 }
                 
-                // Mute Button
-                RemoteButton(
-                    icon: "speaker.slash.fill",
-                    width: 54,
-                    height: 50,
-                    tintColor: Color(red: 1.0, green: 0.6, blue: 0.2),
-                    backgroundColor: Color(white: 0.18)
-                ) {
-                    viewModel.sendKey(.mute)
+                HStack(spacing: 14) {
+                    // List
+                    RemoteButton(
+                        title: "list",
+                        width: 52,
+                        height: 52,
+                        backgroundColor: Color(white: 0.18),
+                        isCircle: true
+                    ) {
+                        viewModel.sendKey(.channelList)
+                    }
+                    
+                    // Guide
+                    RemoteButton(
+                        title: "guide",
+                        width: 52,
+                        height: 52,
+                        backgroundColor: Color(white: 0.18),
+                        isCircle: true
+                    ) {
+                        viewModel.sendKey(.guide)
+                    }
                 }
             }
             
-            // Channel Rocker
+            // Channel Rocker (^, ch, v)
             RockerControlView(
-                topIcon: "chevron.compact.up",
-                bottomIcon: "chevron.compact.down",
-                label: "CH",
+                topIcon: "chevron.up",
+                bottomIcon: "chevron.down",
+                label: "ch",
                 onTopAction: { viewModel.sendKey(.channelUp) },
                 onBottomAction: { viewModel.sendKey(.channelDown) },
+                width: 58,
                 height: rockerHeight
             )
         }
     }
     
-    // MARK: - Bottom Quick App Dock
+    // MARK: - Media Playback Controls Row (<<, >, ||, >>)
+    
+    private var playbackSection: some View {
+        HStack(spacing: 10) {
+            // Rewind
+            RemoteButton(
+                icon: "backward.fill",
+                height: 38,
+                backgroundColor: Color(white: 0.17),
+                isPill: true
+            ) {
+                viewModel.sendKey(.rewind)
+            }
+            
+            // Play
+            RemoteButton(
+                icon: "play.fill",
+                height: 38,
+                backgroundColor: Color(white: 0.17),
+                isPill: true
+            ) {
+                viewModel.sendKey(.play)
+            }
+            
+            // Pause
+            RemoteButton(
+                icon: "pause.fill",
+                height: 38,
+                backgroundColor: Color(white: 0.17),
+                isPill: true
+            ) {
+                viewModel.sendKey(.pause)
+            }
+            
+            // Fast Forward
+            RemoteButton(
+                icon: "forward.fill",
+                height: 38,
+                backgroundColor: Color(white: 0.17),
+                isPill: true
+            ) {
+                viewModel.sendKey(.fastForward)
+            }
+        }
+    }
+    
+    // MARK: - Bottom Quick App Dock (YouTube, Netflix, VTV Go, FPT Play)
     
     private var quickAppDock: some View {
-        HStack(spacing: 12) {
+        HStack(spacing: 8) {
             ForEach(Array(SamsungApp.popularApps.prefix(4))) { app in
                 Button(action: {
                     viewModel.launchApp(app)
@@ -303,18 +377,18 @@ struct ContentView: View {
                                     .stroke(Color.white.opacity(0.1), lineWidth: 1)
                             )
                         
-                        HStack(spacing: 6) {
+                        HStack(spacing: 5) {
                             Circle()
                                 .fill(app.accentColor)
-                                .frame(width: 10, height: 10)
+                                .frame(width: 8, height: 8)
                             
                             Text(app.name)
-                                .font(.system(size: 13, weight: .bold, design: .rounded))
+                                .font(.system(size: 12, weight: .bold, design: .rounded))
                                 .foregroundColor(.white)
                                 .lineLimit(1)
                         }
                     }
-                    .frame(height: 42)
+                    .frame(height: 38)
                 }
                 .buttonStyle(ScaleButtonStyle(scale: 0.94))
             }

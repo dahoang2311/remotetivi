@@ -112,12 +112,8 @@
         <div class="app-screen">
           <div class="screen-ambient-glow"></div>
 
-          <!-- TOP BAR: Source, Status Badge Pill, Power -->
+          <!-- TOP BAR: Status Badge Pill & Power Button -->
           <header class="remote-header">
-            <button class="remote-btn square-btn" id="btnSource" title="Source / Input">
-              <i data-lucide="tv-2"></i>
-            </button>
-
             <!-- Pulsating Connection Badge Pill -->
             <button class="connection-badge-pill" id="btnConnectionBadge">
               <span class="pulse-container">
@@ -132,43 +128,41 @@
             </button>
 
             <!-- Power Button -->
-            <button class="remote-btn square-btn power-btn" id="btnPower" title="Power On/Off">
+            <button class="remote-btn circular-btn power-btn" id="btnPower" title="Power On/Off">
               <i data-lucide="power"></i>
             </button>
           </header>
 
-          <!-- UTILITY ACTION SHORTCUTS BAR -->
-          <section class="utility-bar">
-            <button class="pill-shortcut-btn" id="btnKeypadTrigger" title="Bàn phím số">
-              <span>1 2 3</span>
-            </button>
-            <button class="pill-shortcut-btn" id="btnKeyboardTrigger" title="Nhập chữ tìm kiếm YouTube / Phim">
+          <!-- TOP ROW: Keyboard, 123, Google Assistant -->
+          <section class="top-circle-row">
+            <button class="circle-feature-btn" id="btnKeyboardTrigger" title="Bàn phím nhập chữ">
               <i data-lucide="keyboard"></i>
-              <span>Gõ chữ</span>
             </button>
-            <button class="pill-shortcut-btn" id="btnAppsTrigger" title="Kho ứng dụng">
-              <i data-lucide="layout-grid"></i>
-              <span>Apps</span>
+            <button class="circle-feature-btn" id="btnKeypadTrigger" title="Bàn phím số">
+              <span>123</span>
             </button>
-            <button class="pill-shortcut-btn icon-only" id="btnMenu" title="Menu">
-              <i data-lucide="menu"></i>
+            <button class="circle-feature-btn assistant-btn" id="btnAssistantTrigger" title="Tìm kiếm giọng nói / Assistant">
+              <span class="dot-blue"></span>
+              <span class="dot-red"></span>
+              <span class="dot-yellow"></span>
+              <span class="dot-green"></span>
             </button>
           </section>
 
-          <!-- CENTER D-PAD NAVIGATION SECTION -->
+          <!-- CENTER D-PAD WITH 4 CORNERS: Home, Source, Back, Exit -->
           <section class="dpad-wrapper">
-            <!-- Left Flanking Buttons (Back & Home) -->
+            <!-- Left Flank: Home (top) and Back (bottom) -->
             <div class="flank-col left-flank">
-              <button class="remote-btn circular-flank-btn" id="btnBack" title="Back">
-                <i data-lucide="undo-2"></i>
-              </button>
-              <button class="remote-btn circular-flank-btn home-btn" id="btnHome" title="Home">
+              <button class="remote-btn corner-icon-btn" id="btnHome" title="Home">
                 <i data-lucide="home"></i>
+              </button>
+              <button class="remote-btn corner-icon-btn" id="btnBack" title="Back">
+                <i data-lucide="arrow-left"></i>
               </button>
             </div>
 
-            <!-- Circular D-Pad Controller -->
-            <div class="dpad-ring">
+            <!-- Circular Vibrant Blue D-Pad -->
+            <div class="dpad-ring blue-wheel">
               <button class="dpad-direction up" id="btnDpadUp" title="Up">
                 <i data-lucide="chevron-up"></i>
               </button>
@@ -182,24 +176,24 @@
                 <i data-lucide="chevron-right"></i>
               </button>
 
-              <!-- Central OK Button -->
+              <!-- Central OK Button with thin white outline -->
               <button class="dpad-center-ok" id="btnDpadOk" title="OK / Enter">
-                <span>OK</span>
+                <span>ok</span>
               </button>
             </div>
 
-            <!-- Right Flanking Buttons (Exit & Info) -->
+            <!-- Right Flank: Source (top) and Exit (bottom) -->
             <div class="flank-col right-flank">
-              <button class="remote-btn circular-flank-btn" id="btnExit" title="Exit">
-                <i data-lucide="x"></i>
+              <button class="remote-btn corner-icon-btn" id="btnSource" title="Source / Đầu vào">
+                <i data-lucide="log-in"></i>
               </button>
-              <button class="remote-btn circular-flank-btn" id="btnInfo" title="Info">
-                <i data-lucide="info"></i>
+              <button class="remote-btn corner-icon-btn" id="btnExit" title="Exit / Đóng">
+                <i data-lucide="x"></i>
               </button>
             </div>
           </section>
 
-          <!-- VOLUME & CHANNEL ROCKERS SECTION -->
+          <!-- VOLUME & CHANNEL ROCKERS WITH 2x2 CENTER GRID -->
           <section class="rockers-section">
             <!-- Volume Rocker Switch -->
             <div class="rocker-control volume-rocker">
@@ -207,21 +201,31 @@
                 <i data-lucide="plus"></i>
               </button>
               <div class="rocker-divider">
-                <span>VOL</span>
+                <span>vol</span>
               </div>
               <button class="rocker-half bottom" id="btnVolDown" title="Volume Down">
                 <i data-lucide="minus"></i>
               </button>
             </div>
 
-            <!-- Center Media Controls (Play/Pause & Mute) -->
-            <div class="center-media-controls">
-              <button class="remote-btn circular-media-btn" id="btnPlayPause" title="Play / Pause">
-                <i data-lucide="play"></i>
-              </button>
-              <button class="remote-btn circular-media-btn mute-btn" id="btnMute" title="Mute">
-                <i data-lucide="volume-x"></i>
-              </button>
+            <!-- Center 2x2 Control Grid (Mute, Settings, List, Guide) -->
+            <div class="center-grid-2x2">
+              <div class="grid-row">
+                <button class="remote-btn grid-circle-btn" id="btnMute" title="Mute">
+                  <i data-lucide="volume-x"></i>
+                </button>
+                <button class="remote-btn grid-circle-btn" id="btnSettings" title="Cài đặt">
+                  <i data-lucide="settings"></i>
+                </button>
+              </div>
+              <div class="grid-row">
+                <button class="remote-btn grid-circle-btn text-btn" id="btnList" title="Danh sách kênh">
+                  <span>list</span>
+                </button>
+                <button class="remote-btn grid-circle-btn text-btn" id="btnGuide" title="Hướng dẫn TV">
+                  <span>guide</span>
+                </button>
+              </div>
             </div>
 
             <!-- Channel Rocker Switch -->
@@ -230,7 +234,7 @@
                 <i data-lucide="chevron-up"></i>
               </button>
               <div class="rocker-divider">
-                <span>CH</span>
+                <span>ch</span>
               </div>
               <button class="rocker-half bottom" id="btnChDown" title="Channel Down">
                 <i data-lucide="chevron-down"></i>
@@ -238,23 +242,39 @@
             </div>
           </section>
 
-          <!-- BOTTOM QUICK APP LAUNCHER DOCK -->
-          <footer class="quick-app-dock">
-            <button class="quick-app-pill netflix" data-app="Netflix" data-id="3201907018807">
-              <span class="app-color-badge red"></span>
-              <span>Netflix</span>
+          <!-- PLAYBACK CONTROLS ROW -->
+          <section class="playback-controls-row">
+            <button class="playback-pill-btn" id="btnRewind" title="Tua lùi (Rewind)">
+              <i data-lucide="rewind"></i>
             </button>
+            <button class="playback-pill-btn" id="btnPlay" title="Phát (Play)">
+              <i data-lucide="play"></i>
+            </button>
+            <button class="playback-pill-btn" id="btnPause" title="Tạm dừng (Pause)">
+              <i data-lucide="pause"></i>
+            </button>
+            <button class="playback-pill-btn" id="btnFastForward" title="Tua đi (Fast Forward)">
+              <i data-lucide="fast-forward"></i>
+            </button>
+          </section>
+
+          <!-- BOTTOM QUICK APP LAUNCHER DOCK: YouTube / Netflix / VTV Go / FPT Play -->
+          <footer class="quick-app-dock">
             <button class="quick-app-pill youtube" data-app="YouTube" data-id="111299001912">
               <span class="app-color-badge red-bright"></span>
               <span>YouTube</span>
             </button>
-            <button class="quick-app-pill prime" data-app="Prime Video" data-id="3201901017640">
-              <span class="app-color-badge cyan"></span>
-              <span>Prime</span>
+            <button class="quick-app-pill netflix" data-app="Netflix" data-id="3201907018807">
+              <span class="app-color-badge red"></span>
+              <span>Netflix</span>
             </button>
-            <button class="quick-app-pill apple" data-app="Apple TV" data-id="3201807016597">
-              <span class="app-color-badge gray"></span>
-              <span>Apple TV</span>
+            <button class="quick-app-pill vtvgo" data-app="VTV Go" data-id="3201710015037">
+              <span class="app-color-badge red"></span>
+              <span>VTV Go</span>
+            </button>
+            <button class="quick-app-pill fptplay" data-app="FPT Play" data-id="3201601007250">
+              <span class="app-color-badge orange"></span>
+              <span>FPT Play</span>
             </button>
           </footer>
 

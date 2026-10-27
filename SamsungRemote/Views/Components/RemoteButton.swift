@@ -10,6 +10,7 @@ struct RemoteButton: View {
     var tintColor: Color = .white
     var backgroundColor: Color = Color(white: 0.16)
     var isPill: Bool = false
+    var isCircle: Bool = false
     var glowColor: Color? = nil
     
     init(
@@ -20,6 +21,7 @@ struct RemoteButton: View {
         tintColor: Color = .white,
         backgroundColor: Color = Color(white: 0.16),
         isPill: Bool = false,
+        isCircle: Bool = false,
         glowColor: Color? = nil,
         action: @escaping () -> Void
     ) {
@@ -30,6 +32,7 @@ struct RemoteButton: View {
         self.tintColor = tintColor
         self.backgroundColor = backgroundColor
         self.isPill = isPill
+        self.isCircle = isCircle
         self.glowColor = glowColor
         self.action = action
     }
@@ -40,7 +43,14 @@ struct RemoteButton: View {
         }) {
             ZStack {
                 // Background & Glass styling
-                if isPill {
+                if isCircle {
+                    Circle()
+                        .fill(buttonGradient)
+                        .overlay(
+                            Circle()
+                                .stroke(Color.white.opacity(0.12), lineWidth: 1)
+                        )
+                } else if isPill {
                     Capsule()
                         .fill(buttonGradient)
                         .overlay(
