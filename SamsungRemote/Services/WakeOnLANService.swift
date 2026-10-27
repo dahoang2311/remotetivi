@@ -58,10 +58,10 @@ final class WakeOnLANService {
         let ports: [UInt16] = [9, 7]
         let group = DispatchGroup()
         var overallSuccess = false
+        let host = NWEndpoint.Host(targetHost)
         
         for portNum in ports {
-            guard let host = NWEndpoint.Host(targetHost).asHost(),
-                  let port = NWEndpoint.Port(rawValue: portNum) else {
+            guard let port = NWEndpoint.Port(rawValue: portNum) else {
                 continue
             }
             
@@ -70,10 +70,10 @@ final class WakeOnLANService {
             params.allowLocalEndpointReuse = true
             
             let connection = NWConnection(host: host, port: port, using: params)
-            connection.stateUpdateHandler = { state in
+            connection.stateUpdateHandler = { (state: NWConnection.State) in
                 switch state {
                 case .ready:
-                    connection.send(content: packet, completion: .contentProcessed({ error in
+                    connection.send(content: packet, completion: NWConnection.SendCompletion.contentProcessed({ error in
                         connection.cancel()
                         if error == nil { overallSuccess = true }
                         group.leave()
@@ -84,17 +84,11 @@ final class WakeOnLANService {
                     break
                 }
             }
-            connection.start(queue: .global(qos: .userInitiated))
+            connection.start(queue: DispatchQueue.global(qos: .userInitiated))
         }
         
         group.notify(queue: .main) {
             completion?(overallSuccess)
         }
-    }
-}
-
-private extension String {
-    func asHost() -> NWEndpoint.Host? {
-        return NWEndpoint.Host(self)
     }
 }

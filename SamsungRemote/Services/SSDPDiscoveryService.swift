@@ -60,8 +60,8 @@ final class SSDPDiscoveryService: ObservableObject {
     // MARK: - SSDP UDP Multicast
     
     private func sendSSDPDiscovery() {
-        guard let host = NWEndpoint.Host(ssdpHost).asNWHost(),
-              let port = NWEndpoint.Port(rawValue: ssdpPort) else {
+        let host = NWEndpoint.Host(ssdpHost)
+        guard let port = NWEndpoint.Port(rawValue: ssdpPort) else {
             return
         }
         
@@ -71,7 +71,7 @@ final class SSDPDiscoveryService: ObservableObject {
         let connection = NWConnection(host: host, port: port, using: params)
         self.udpConnection = connection
         
-        connection.stateUpdateHandler = { [weak self] state in
+        connection.stateUpdateHandler = { [weak self] (state: NWConnection.State) in
             guard let self = self else { return }
             if case .ready = state {
                 // Send M-SEARCH for each target
@@ -83,7 +83,7 @@ final class SSDPDiscoveryService: ObservableObject {
                                        "ST: \(target)\r\n\r\n"
                     
                     if let data = searchPacket.data(using: .utf8) {
-                        connection.send(content: data, completion: .idempotent)
+                        connection.send(content: data, completion: NWConnection.SendCompletion.idempotent)
                     }
                 }
                 self.receiveSSDPResponses(on: connection)
@@ -261,11 +261,5 @@ final class SSDPDiscoveryService: ObservableObject {
         #else
         return nil
         #endif
-    }
-}
-
-private extension String {
-    func asNWHost() -> NWEndpoint.Host? {
-        return NWEndpoint.Host(self)
     }
 }
