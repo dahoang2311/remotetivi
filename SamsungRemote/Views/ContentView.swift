@@ -109,15 +109,17 @@ struct ContentView: View {
             
             Spacer()
             
-            // Power Button (Red glowing power toggle)
+            // Power Button (Transparent background, red border, red icon)
             RemoteButton(
                 icon: "power",
                 width: 44,
                 height: 44,
-                tintColor: .white,
-                backgroundColor: Color(red: 0.85, green: 0.18, blue: 0.22),
+                tintColor: Color(red: 1.0, green: 0.23, blue: 0.23),
+                backgroundColor: .clear,
+                borderColor: Color(red: 1.0, green: 0.23, blue: 0.23),
+                borderWidth: 1.6,
                 isCircle: true,
-                glowColor: Color.red
+                glowColor: Color.red.opacity(0.35)
             ) {
                 viewModel.togglePower()
             }

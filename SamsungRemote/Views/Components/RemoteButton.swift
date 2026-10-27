@@ -9,6 +9,8 @@ struct RemoteButton: View {
     var height: CGFloat = 54
     var tintColor: Color = .white
     var backgroundColor: Color = Color(white: 0.16)
+    var borderColor: Color? = nil
+    var borderWidth: CGFloat = 1
     var isPill: Bool = false
     var isCircle: Bool = false
     var glowColor: Color? = nil
@@ -20,6 +22,8 @@ struct RemoteButton: View {
         height: CGFloat = 54,
         tintColor: Color = .white,
         backgroundColor: Color = Color(white: 0.16),
+        borderColor: Color? = nil,
+        borderWidth: CGFloat = 1,
         isPill: Bool = false,
         isCircle: Bool = false,
         glowColor: Color? = nil,
@@ -31,6 +35,8 @@ struct RemoteButton: View {
         self.height = height
         self.tintColor = tintColor
         self.backgroundColor = backgroundColor
+        self.borderColor = borderColor
+        self.borderWidth = borderWidth
         self.isPill = isPill
         self.isCircle = isCircle
         self.glowColor = glowColor
@@ -44,26 +50,41 @@ struct RemoteButton: View {
             ZStack {
                 // Background & Glass styling
                 if isCircle {
-                    Circle()
-                        .fill(buttonGradient)
-                        .overlay(
-                            Circle()
-                                .stroke(Color.white.opacity(0.12), lineWidth: 1)
-                        )
+                    if backgroundColor == .clear {
+                        Circle()
+                            .stroke(borderColor ?? Color.white.opacity(0.12), lineWidth: borderWidth)
+                    } else {
+                        Circle()
+                            .fill(buttonGradient)
+                            .overlay(
+                                Circle()
+                                    .stroke(borderColor ?? Color.white.opacity(0.12), lineWidth: borderWidth)
+                            )
+                    }
                 } else if isPill {
-                    Capsule()
-                        .fill(buttonGradient)
-                        .overlay(
-                            Capsule()
-                                .stroke(Color.white.opacity(0.12), lineWidth: 1)
-                        )
+                    if backgroundColor == .clear {
+                        Capsule()
+                            .stroke(borderColor ?? Color.white.opacity(0.12), lineWidth: borderWidth)
+                    } else {
+                        Capsule()
+                            .fill(buttonGradient)
+                            .overlay(
+                                Capsule()
+                                    .stroke(borderColor ?? Color.white.opacity(0.12), lineWidth: borderWidth)
+                            )
+                    }
                 } else {
-                    RoundedRectangle(cornerRadius: height / 2.8, style: .continuous)
-                        .fill(buttonGradient)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: height / 2.8, style: .continuous)
-                                .stroke(Color.white.opacity(0.12), lineWidth: 1)
-                        )
+                    if backgroundColor == .clear {
+                        RoundedRectangle(cornerRadius: height / 2.8, style: .continuous)
+                            .stroke(borderColor ?? Color.white.opacity(0.12), lineWidth: borderWidth)
+                    } else {
+                        RoundedRectangle(cornerRadius: height / 2.8, style: .continuous)
+                            .fill(buttonGradient)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: height / 2.8, style: .continuous)
+                                    .stroke(borderColor ?? Color.white.opacity(0.12), lineWidth: borderWidth)
+                            )
+                    }
                 }
                 
                 // Content

@@ -460,17 +460,6 @@ body {
   height: 20px;
 }
 
-/* Power Button */
-.power-btn {
-  background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
-  border-color: rgba(255, 100, 100, 0.4);
-  box-shadow: 0 4px 16px rgba(229, 57, 53, 0.45);
-}
-
-.power-btn:active {
-  background: #f44336;
-  box-shadow: 0 2px 8px rgba(229, 57, 53, 0.6);
-}
 
 /* Connection Status Badge Pill */
 .connection-badge-pill {
@@ -548,6 +537,34 @@ body {
   width: 12px;
   height: 12px;
   color: var(--ios-text-secondary);
+}
+
+/* Power Button: Red Border, Transparent Background, Red Icon */
+.power-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50% !important;
+  background: transparent !important;
+  border: 1.6px solid #ff3b30 !important;
+  color: #ff3b30 !important;
+  box-shadow: 0 0 10px rgba(255, 59, 48, 0.35) !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.12s, box-shadow 0.2s, background 0.15s;
+}
+
+.power-btn:active {
+  transform: scale(0.90);
+  background: rgba(255, 59, 48, 0.15) !important;
+  box-shadow: 0 0 16px rgba(255, 59, 48, 0.6) !important;
+}
+
+.power-btn svg {
+  width: 20px;
+  height: 20px;
+  stroke: #ff3b30 !important;
 }
 
 /* ==========================================================================
